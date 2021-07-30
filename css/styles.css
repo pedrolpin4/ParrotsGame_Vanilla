@@ -24,13 +24,13 @@ body {
     justify-content: center;
 }
 
-.container ul{
+.lista {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.container ul li {
+.lista li {
     height: 146px;
     width: 117px;
     border-radius: 5px;
