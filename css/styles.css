@@ -5,10 +5,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 40px;
 }
 
 .top-box {
+    margin-top: 50px;
     font-size: 56px;
     font-weight: bold;
     color: #75B79E;
@@ -67,11 +67,11 @@ body {
     width: 100px;
 }
 
-.lista li:hover .back-face {
+.back-face-virada {
     transform: rotateY(0deg);
 }
 
-.lista li:hover .front-face {
+.front-face-virada {
     transform: rotateY(-180deg);
 }
 

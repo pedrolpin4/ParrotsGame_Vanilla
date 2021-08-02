@@ -1,16 +1,16 @@
 let lista = document.querySelector(".lista");
 let a = [];
 let quantidade = Number(prompt('Escolha o número de cartas (números pares de 4 a 14)'));
+const imagens = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif" ];
+let ultimaCartaB = 0;
+let ultimaCartaF = 0;
 
 while (!(quantidade >= 4 && quantidade <= 14 && !(quantidade%2))){
     quantidade = Number(prompt('Escolha o número de cartas (números pares de 4 a 14)'));
 }
 
 const cartinhaAleatoria = function (){
-    let imagens = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif" ];
-    let indice = Math.ceil(Math.random() * 7) - 1;
-    console.log(indice);
-
+    let indice = Math.ceil(Math.random() * imagens.length) - 1;
     let cartinha = `
     <li onclick = "virarCarta(this)">
         <div class = "face front-face">
@@ -20,7 +20,7 @@ const cartinhaAleatoria = function (){
             <img src = "Images/${imagens[indice]}" class = "gif">
         </div>
     </li>`;
-
+    imagens.splice(indice, 1)
     return cartinha;
 }
 
@@ -37,9 +37,7 @@ const AdicionarEmbaralhar = function (){
     for(let i = 0; i < (quantidade/2); i++){
         adicionarArray();       
     }    
-
     a.sort(ordemAleatoria);
-
     for(let i = 0; i < quantidade; i++){
         lista.innerHTML += a[i];
     }
@@ -47,11 +45,46 @@ const AdicionarEmbaralhar = function (){
 
 AdicionarEmbaralhar();
 
+let contador = 0;
+
 const virarCarta = function(elemento) {
-    let backFace = elemento.querySelector(".face .back-face")
-    let face = elemento.querySelector(".face .front-face")
-    backFace.transform = "rotateY(0)"
-    face.transform = "rotateY(-180)"
+    let backFace = elemento.querySelector(`.back-face`);
+    let frontFace = elemento.querySelector(`.front-face`);
+    if(!(backFace.classList.contains("back-face-virada"))){
+        contador ++;
+        frontFace.classList.add("front-face-virada");
+        backFace.classList.add("back-face-virada"); 
+        console.log(contador);
+        if (!(contador%2)){
+            console.log(ultimaCartaB);
+            console.log(ultimaCartaF);
+            let src1 = ultimaCartaB.childNodes[1].src;
+            let src2 = backFace.childNodes[1].src;
+            verificaSeIgual(src1, src2, frontFace, backFace);
+            console.log(src1);
+        }
+        verificaSeAcabou();
+        ultimaCartaB = backFace; 
+        ultimaCartaF = frontFace;  
+    }
 }
 
+const verificaSeIgual = function (a, b, c, d){
+    if(a !== b){
+        setTimeout(function (){
+            c.classList.remove("front-face-virada");
+            d.classList.remove("back-face-virada");
+        }, 1000)
+        setTimeout(function (){
+            ultimaCartaB.classList.remove("back-face-virada");
+            ultimaCartaF.classList.remove("front-face-virada");        
+        }, 1000)
+    }
+}
 
+const verificaSeAcabou = function () {
+    let cartasViradas = document.querySelectorAll(".back-face-virada");
+    if (cartasViradas.length === quantidade){
+    setTimeout(alert(`Você ganhou em ${contador/2} jogadas`), 800);
+    }    
+}
