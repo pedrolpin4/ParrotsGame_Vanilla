@@ -89,7 +89,11 @@ const verificaSeAcabou = function () {
     if (cartasViradas.length === quantidade){
     setTimeout(alert(`Você ganhou em ${contador/2} jogadas e ${segundos} segundos`), 800);
     clearInterval(idRelogio);
-    }    
+    let simOuNao = prompt("Quer reiniciar?");
+    if(simOuNao === "sim"){
+        reiniciar();
+    } 
+    }   
 }
 
 let segundos = 0;
@@ -105,3 +109,26 @@ let relogio = function (){
 relogio();
 
 let idRelogio = setInterval(relogio, 1000);
+
+let reiniciar = function () {
+    let cartasB = document.querySelectorAll(".back-face-virada");
+    let cartasF = document.querySelectorAll(".front-face-virada");
+    cartasB.forEach(removerBack);
+    cartasF.forEach(removerFront);
+    reiniciarRelogio();
+}
+
+let removerBack = function (elemento){
+    elemento.classList.remove("back-face-virada");
+}
+
+let removerFront = function (elemento){
+    elemento.classList.remove("front-face-virada");
+}
+
+let reiniciarRelogio = function (){
+    segundos = 0;
+    let a = setInterval(relogio, 1000);
+}
+
+a();
