@@ -7,6 +7,23 @@ body {
     align-items: center;
 }
 
+.relogio{
+    height: 40px;
+    width: 100vw;
+    top: 0px;
+    left: 0;
+    position: fixed;
+    background: #abce80;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #EEF9BF;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 .top-box {
     margin-top: 50px;
     font-size: 56px;
@@ -81,4 +98,7 @@ body {
         width: 312px;
         font-size: 36px;
     } 
+    .scoreRelogio{
+        height: 30px;
+    }
 }

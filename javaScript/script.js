@@ -2,8 +2,6 @@ let lista = document.querySelector(".lista");
 let a = [];
 let quantidade = Number(prompt('Escolha o número de cartas (números pares de 4 a 14)'));
 const imagens = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif" ];
-let ultimaCartaB = 0;
-let ultimaCartaF = 0;
 
 while (!(quantidade >= 4 && quantidade <= 14 && !(quantidade%2))){
     quantidade = Number(prompt('Escolha o número de cartas (números pares de 4 a 14)'));
@@ -20,7 +18,7 @@ const cartinhaAleatoria = function (){
             <img src = "Images/${imagens[indice]}" class = "gif">
         </div>
     </li>`;
-    imagens.splice(indice, 1)
+    imagens.splice(indice, 1);
     return cartinha;
 }
 
@@ -46,6 +44,8 @@ const AdicionarEmbaralhar = function (){
 AdicionarEmbaralhar();
 
 let contador = 0;
+let ultimaCartaB = 0;
+let ultimaCartaF = 0;
 
 const virarCarta = function(elemento) {
     let backFace = elemento.querySelector(`.back-face`);
@@ -65,19 +65,21 @@ const virarCarta = function(elemento) {
         }
         verificaSeAcabou();
         ultimaCartaB = backFace; 
-        ultimaCartaF = frontFace;  
+        ultimaCartaF = frontFace;   
     }
 }
 
 const verificaSeIgual = function (a, b, c, d){
+    let ub = ultimaCartaB;
+    let uf = ultimaCartaF;
     if(a !== b){
         setTimeout(function (){
             c.classList.remove("front-face-virada");
             d.classList.remove("back-face-virada");
         }, 1000)
         setTimeout(function (){
-            ultimaCartaB.classList.remove("back-face-virada");
-            ultimaCartaF.classList.remove("front-face-virada");        
+            ub.classList.remove("back-face-virada");
+            uf.classList.remove("front-face-virada");        
         }, 1000)
     }
 }
@@ -85,6 +87,21 @@ const verificaSeIgual = function (a, b, c, d){
 const verificaSeAcabou = function () {
     let cartasViradas = document.querySelectorAll(".back-face-virada");
     if (cartasViradas.length === quantidade){
-    setTimeout(alert(`Você ganhou em ${contador/2} jogadas`), 800);
+    setTimeout(alert(`Você ganhou em ${contador/2} jogadas e ${segundos} segundos`), 800);
+    clearInterval(idRelogio);
     }    
 }
+
+let segundos = 0;
+
+let relogio = function (){
+    let timer = document.querySelector(".relogio");
+    console.log(timer);
+    let inner = `Contador: ${segundos}`
+    timer.innerHTML = inner;
+    segundos++;
+}
+
+relogio();
+
+let idRelogio = setInterval(relogio, 1000);
