@@ -116,6 +116,13 @@ let reiniciar = function () {
     cartasB.forEach(removerBack);
     cartasF.forEach(removerFront);
     reiniciarRelogio();
+    a.sort(ordemAleatoria);
+    lista.innerHTML = "";
+    a.forEach(add);
+}
+
+let add = function(elemento) {
+    lista.innerHTML += elemento;
 }
 
 let removerBack = function (elemento){
@@ -130,5 +137,3 @@ let reiniciarRelogio = function (){
     segundos = 0;
     let a = setInterval(relogio, 1000);
 }
-
-a();
