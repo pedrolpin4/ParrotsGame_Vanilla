@@ -87,12 +87,14 @@ const verificaSeIgual = function (a, b, c, d){
 const verificaSeAcabou = function () {
     let cartasViradas = document.querySelectorAll(".back-face-virada");
     if (cartasViradas.length === quantidade){
-    setTimeout(alert(`Você ganhou em ${contador/2} jogadas e ${segundos} segundos`), 800);
+    alert(`Você ganhou em ${contador/2} jogadas e ${segundos - 1} segundos`);
     clearInterval(idRelogio);
     let simOuNao = prompt("Quer reiniciar?");
     if(simOuNao === "sim"){
         reiniciar();
-    } 
+    } else {
+        parar();
+    }
     }   
 }
 
@@ -115,10 +117,12 @@ let reiniciar = function () {
     let cartasF = document.querySelectorAll(".front-face-virada");
     cartasB.forEach(removerBack);
     cartasF.forEach(removerFront);
+    clearInterval(idRelogio);
     reiniciarRelogio();
     a.sort(ordemAleatoria);
     lista.innerHTML = "";
     a.forEach(add);
+    segundos = 0;
 }
 
 let add = function(elemento) {
@@ -133,7 +137,13 @@ let removerFront = function (elemento){
     elemento.classList.remove("front-face-virada");
 }
 
+let int = 0;
+
 let reiniciarRelogio = function (){
-    segundos = 0;
-    let a = setInterval(relogio, 1000);
+    clearInterval(int);
+    int = setInterval(relogio, 1000);
+}
+
+parar() = function () {
+    lclearInterval(int);
 }
