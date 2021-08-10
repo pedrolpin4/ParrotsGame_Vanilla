@@ -123,6 +123,7 @@ let reiniciar = function () {
     lista.innerHTML = "";
     a.forEach(add);
     segundos = 0;
+    contador = 0;
 }
 
 let add = function(elemento) {
@@ -144,6 +145,6 @@ let reiniciarRelogio = function (){
     int = setInterval(relogio, 1000);
 }
 
-parar() = function () {
-    lclearInterval(int);
+let parar = function () {
+    clearInterval(int);
 }
